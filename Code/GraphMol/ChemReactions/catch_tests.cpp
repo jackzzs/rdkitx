@@ -1,15 +1,15 @@
 //
-//  Copyright (c) 2018-2024 Greg Landrum and other RDKit contributors
+//  Copyright (c) 2018-2024 Greg Landrum and other RDKix contributors
 //
 //   @@ All Rights Reserved @@
-//  This file is part of the RDKit.
+//  This file is part of the RDKix.
 //  The contents are covered by the terms of the BSD license
 //  which is included in the file license.txt, found at the root
-//  of the RDKit source tree.
+//  of the RDKix source tree.
 ///
 #include <catch2/catch_all.hpp>
 
-#include <GraphMol/RDKitBase.h>
+#include <GraphMol/RDKixBase.h>
 #include <GraphMol/QueryOps.h>
 #include <GraphMol/QueryAtom.h>
 #include <GraphMol/MonomerInfo.h>
@@ -28,7 +28,7 @@
 #include <GraphMol/FileParsers/PNGParser.h>
 #include <GraphMol/FileParsers/FileParserUtils.h>
 
-using namespace RDKit;
+using namespace RDKix;
 using std::unique_ptr;
 
 TEST_CASE("Github #1632", "[Reaction][PDB][bug]") {
@@ -1389,12 +1389,12 @@ TEST_CASE("Github #5785: separateAgents ignored for V3000 RXN files") {
   SECTION("general separateAgents parse testing: V2000") {
     std::string rxnb = R"RXN($RXN
 
-      RDKit
+      RDKix
 
   1  1  1
 $MOL
 
-     RDKit          2D
+     RDKix          2D
 
   2  1  0  0  0  0  0  0  0  0999 V2000
     0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  1  0  0
@@ -1403,7 +1403,7 @@ $MOL
 M  END
 $MOL
 
-     RDKit          2D
+     RDKix          2D
 
   2  1  0  0  0  0  0  0  0  0999 V2000
     0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  1  0  0
@@ -1412,7 +1412,7 @@ $MOL
 M  END
 $MOL
 
-     RDKit          2D
+     RDKix          2D
 
   1  0  0  0  0  0  0  0  0  0999 V2000
     0.0000    0.0000    0.0000 Pt  0  0  0  0  0  0  0  0  0  0  0  0

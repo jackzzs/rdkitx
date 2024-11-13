@@ -1,16 +1,16 @@
 //
-//  Copyright (C) 2018-2021 Susan H. Leung and other RDKit contributors
+//  Copyright (C) 2018-2021 Susan H. Leung and other RDKix contributors
 //
 //   @@ All Rights Reserved @@
-//  This file is part of the RDKit.
+//  This file is part of the RDKix.
 //  The contents are covered by the terms of the BSD license
 //  which is included in the file license.txt, found at the root
-//  of the RDKit source tree.
+//  of the RDKix source tree.
 //
 /*! \file Validate.h
 
         \brief Defines the ValidationErrorInfo class and four different
-   validation methods: RDKitValidation, MolVSValidation, AllowedAtomsValidation,
+   validation methods: RDKixValidation, MolVSValidation, AllowedAtomsValidation,
    DisallowedAtomsValidation.
 
 */
@@ -18,7 +18,7 @@
 #ifndef RD_VALIDATE_H
 #define RD_VALIDATE_H
 
-#include <GraphMol/RDKitBase.h>
+#include <GraphMol/RDKixBase.h>
 #include <GraphMol/ROMol.h>
 #include <GraphMol/Atom.h>
 #include <iostream>
@@ -27,7 +27,7 @@
 #include <utility>
 #include <vector>
 
-namespace RDKit {
+namespace RDKix {
 class RWMol;
 class ROMol;
 
@@ -39,7 +39,7 @@ using ValidationErrorInfo = std::string;
 
 //! The ValidationMethod class is the abstract base class upon which all the
 /// four different ValidationMethods inherit from.
-class RDKIT_MOLSTANDARDIZE_EXPORT ValidationMethod {
+class RDKIX_MOLSTANDARDIZE_EXPORT ValidationMethod {
  public:
   ValidationMethod() = default;
   virtual ~ValidationMethod() = default;
@@ -51,7 +51,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT ValidationMethod {
 
 //! The CompositeValidation class provides a simple way to apply a collection of
 // ValidationMethod instances in sequence
-class RDKIT_MOLSTANDARDIZE_EXPORT CompositeValidation : public ValidationMethod {
+class RDKIX_MOLSTANDARDIZE_EXPORT CompositeValidation : public ValidationMethod {
  public:
   CompositeValidation(
     const std::vector<std::shared_ptr<ValidationMethod>> & validations)
@@ -68,21 +68,21 @@ class RDKIT_MOLSTANDARDIZE_EXPORT CompositeValidation : public ValidationMethod 
    std::vector<std::shared_ptr<ValidationMethod>> validations;
 };
 
-//! The RDKitValidation class throws an error when there are no atoms in the
+//! The RDKixValidation class throws an error when there are no atoms in the
 /// molecule or when there is incorrect atom valency.
 /*!
 
   <b>Notes:</b>
-    - RDKit automatically throws up atom valency issues but this class was made
+    - RDKix automatically throws up atom valency issues but this class was made
   for completeness of the project.
 */
-class RDKIT_MOLSTANDARDIZE_EXPORT RDKitValidation : public ValidationMethod {
+class RDKIX_MOLSTANDARDIZE_EXPORT RDKixValidation : public ValidationMethod {
  public:
   std::vector<ValidationErrorInfo> validate(
       const ROMol &mol, bool reportAllFailures) const override;
 
   std::shared_ptr<ValidationMethod> copy() const override {
-    return std::make_shared<RDKitValidation>(*this);
+    return std::make_shared<RDKixValidation>(*this);
   }
 };
 
@@ -92,7 +92,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT RDKitValidation : public ValidationMethod {
 
 //! The NoAtomValidation class throws an error if no atoms are present in the
 /// molecule.
-class RDKIT_MOLSTANDARDIZE_EXPORT NoAtomValidation : public ValidationMethod {
+class RDKIX_MOLSTANDARDIZE_EXPORT NoAtomValidation : public ValidationMethod {
  public:
   std::vector<ValidationErrorInfo> validate(
     const ROMol &mol, bool reportAllFailures) const override;
@@ -103,7 +103,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT NoAtomValidation : public ValidationMethod {
 };
 
 //! The FragmentValidation class logs if certain fragments are present.
-class RDKIT_MOLSTANDARDIZE_EXPORT FragmentValidation : public ValidationMethod {
+class RDKIX_MOLSTANDARDIZE_EXPORT FragmentValidation : public ValidationMethod {
  public:
   std::vector<ValidationErrorInfo> validate(
     const ROMol &mol, bool reportAllFailures) const override;
@@ -114,7 +114,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT FragmentValidation : public ValidationMethod {
 };
 
 //! The NeutralValidation class logs if not an overall neutral system.
-class RDKIT_MOLSTANDARDIZE_EXPORT NeutralValidation : public ValidationMethod {
+class RDKIX_MOLSTANDARDIZE_EXPORT NeutralValidation : public ValidationMethod {
  public:
   std::vector<ValidationErrorInfo> validate(
     const ROMol &mol, bool reportAllFailures) const override;
@@ -125,7 +125,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT NeutralValidation : public ValidationMethod {
 };
 
 //! The IsotopeValidation class logs if molecule contains isotopes.
-class RDKIT_MOLSTANDARDIZE_EXPORT IsotopeValidation : public ValidationMethod {
+class RDKIX_MOLSTANDARDIZE_EXPORT IsotopeValidation : public ValidationMethod {
  public:
   std::vector<ValidationErrorInfo> validate(
     const ROMol &mol, bool reportAllFailures) const override;
@@ -140,7 +140,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT IsotopeValidation : public ValidationMethod {
 /// molvs.validations, namely NoAtomValidation, FragmentValidation,
 /// NeutralValidation, IsotopeValidation. MolVS also has IsNoneValidation and
 /// DichloroethaneValidation but these were not included here (yet).
-class RDKIT_MOLSTANDARDIZE_EXPORT MolVSValidation : public CompositeValidation {
+class RDKIX_MOLSTANDARDIZE_EXPORT MolVSValidation : public CompositeValidation {
  public:
   // constructor
   MolVSValidation();
@@ -156,7 +156,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT MolVSValidation : public CompositeValidation {
 //! The AllowedAtomsValidation class lets the user input a list of atoms,
 //! anything not on
 /// the list throws an error.
-class RDKIT_MOLSTANDARDIZE_EXPORT AllowedAtomsValidation
+class RDKIX_MOLSTANDARDIZE_EXPORT AllowedAtomsValidation
     : public ValidationMethod {
  public:
   AllowedAtomsValidation(std::vector<std::shared_ptr<Atom>> atoms)
@@ -175,7 +175,7 @@ class RDKIT_MOLSTANDARDIZE_EXPORT AllowedAtomsValidation
 //! The DisallowedAtomsValidation class lets the user input a list of atoms and
 //! as long
 /// as there are no atoms from the list it is deemed acceptable.
-class RDKIT_MOLSTANDARDIZE_EXPORT DisallowedAtomsValidation
+class RDKIX_MOLSTANDARDIZE_EXPORT DisallowedAtomsValidation
     : public ValidationMethod {
  public:
   DisallowedAtomsValidation(std::vector<std::shared_ptr<Atom>> atoms)
@@ -192,10 +192,10 @@ class RDKIT_MOLSTANDARDIZE_EXPORT DisallowedAtomsValidation
 };
 
 //! A convenience function for quickly validating a single SMILES string.
-RDKIT_MOLSTANDARDIZE_EXPORT std::vector<ValidationErrorInfo> validateSmiles(
+RDKIX_MOLSTANDARDIZE_EXPORT std::vector<ValidationErrorInfo> validateSmiles(
     const std::string &smiles);
 
 }  // namespace MolStandardize
-}  // namespace RDKit
+}  // namespace RDKix
 
 #endif

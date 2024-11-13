@@ -1,11 +1,11 @@
 //
-//  Copyright (C) 2018-2021 Greg Landrum and other RDKit contributors
+//  Copyright (C) 2018-2021 Greg Landrum and other RDKix contributors
 //
 //   @@ All Rights Reserved @@
-//  This file is part of the RDKit.
+//  This file is part of the RDKix.
 //  The contents are covered by the terms of the BSD license
 //  which is included in the file license.txt, found at the root
-//  of the RDKit source tree.
+//  of the RDKix source tree.
 //
 
 #include <catch2/catch_all.hpp>
@@ -14,7 +14,7 @@
 #include <thread>
 #endif
 
-#include <GraphMol/RDKitBase.h>
+#include <GraphMol/RDKixBase.h>
 #include <GraphMol/MolPickler.h>
 #include <GraphMol/QueryAtom.h>
 #include <GraphMol/QueryBond.h>
@@ -29,7 +29,7 @@
 #include <GraphMol/FileParsers/FileParsers.h>
 #include <GraphMol/FileParsers/MolFileStereochem.h>
 
-using namespace RDKit;
+using namespace RDKix;
 
 TEST_CASE("Github #1972", "[SMILES][bug]") {
   SECTION("basics") {
@@ -1627,7 +1627,7 @@ TEST_CASE(
 
 TEST_CASE("Github #4582: double bonds and ring closures") {
   auto mol = R"CTAB(CHEMBL409450
-     RDKit          2D
+     RDKix          2D
 
  22 25  0  0  0  0  0  0  0  0999 V2000
    -1.1669    1.3591    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
@@ -1778,7 +1778,7 @@ M  END)CTAB"_ctab;
   }
   SECTION("CHEMBL3623347") {
     auto mol = R"CTAB(CHEMBL3623347
-     RDKit          2D
+     RDKix          2D
 
  44 47  0  0  0  0  0  0  0  0999 V2000
    -2.0000    1.0700    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
@@ -2167,7 +2167,7 @@ TEST_CASE("wiggly and wedged bonds in CXSMILES") {
 
   SECTION("writing wedges and dashes") {
     auto m = R"CTAB(
-  RDKit             2D
+  RDKix             2D
 
   0  0  0     0  0            999 V3000
 M  V30 BEGIN CTAB
@@ -2436,7 +2436,7 @@ TEST_CASE("Atropisomer output in CXSMILES", "[SMILES]") {
     REQUIRE(mol);
     CHECK(mol->getNumConformers() == 1);
 
-    RDKit::SmilesWriteParams ps;
+    RDKix::SmilesWriteParams ps;
     ps.canonical = false;
     unsigned int flags = SmilesWrite::CXSmilesFields::CX_COORDS |
                          SmilesWrite::CXSmilesFields::CX_MOLFILE_VALUES |
@@ -2487,7 +2487,7 @@ TEST_CASE("Dative  bond in cxsmiles double double def", "[bug][cxsmiles]") {
     std::unique_ptr<RWMol> smilesMol(
         SmilesToMol("C1CCC2=[N]1[Fe](\\[O]=C(\\C)/C=C/C1CCCC1)[N]1=C(CCC1)C2",
                     smilesParserParams));
-    RDKit::Chirality::reapplyMolBlockWedging(*smilesMol);
+    RDKix::Chirality::reapplyMolBlockWedging(*smilesMol);
     {
       SmilesWriteParams ps;
       ps.canonical = true;
@@ -2508,7 +2508,7 @@ TEST_CASE("Fieldname not found in SuperatomSgroup in CXSmiles",
 
     std::unique_ptr<RWMol> smilesMol(
         SmilesToMol("CC |SgD:0:::|", smilesParserParams));
-    RDKit::Chirality::reapplyMolBlockWedging(*smilesMol);
+    RDKix::Chirality::reapplyMolBlockWedging(*smilesMol);
     {
       SmilesWriteParams ps;
       ps.canonical = true;
@@ -2717,7 +2717,7 @@ TEST_CASE(
     "Github #5499: STEREOANY bonds lead to non-stable SMILES/SMARTS strings") {
   SECTION("as reported") {
     std::string mb = R"CTAB(7643724
-     RDKit          2D
+     RDKix          2D
 
   0  0  0  0  0  0  0  0  0  0999 V3000
 M  V30 BEGIN CTAB

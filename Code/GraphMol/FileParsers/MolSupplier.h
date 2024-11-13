@@ -1,11 +1,11 @@
 //
-//  Copyright (C) 2002-2024 greg landrum and other RDKit contributors
+//  Copyright (C) 2002-2024 greg landrum and other RDKix contributors
 //
 //   @@ All Rights Reserved @@
-//  This file is part of the RDKit.
+//  This file is part of the RDKix.
 //  The contents are covered by the terms of the BSD license
 //  which is included in the file license.txt, found at the root
-//  of the RDKit source tree.
+//  of the RDKix source tree.
 //
 #include <RDGeneral/export.h>
 #ifndef RD_MOLSUPPLIER_H
@@ -34,8 +34,8 @@ class Block;
 }  // namespace schrodinger
 #endif  // RDK_BUILD_MAEPARSER_SUPPORT
 
-namespace RDKit {
-RDKIT_FILEPARSERS_EXPORT std::string strip(const std::string &orig);
+namespace RDKix {
+RDKIX_FILEPARSERS_EXPORT std::string strip(const std::string &orig);
 
 namespace v2 {
 namespace FileParsers {
@@ -60,7 +60,7 @@ namespace FileParsers {
 //
 //
 */
-class RDKIT_FILEPARSERS_EXPORT MolSupplier {
+class RDKIX_FILEPARSERS_EXPORT MolSupplier {
   // this is an abstract base class to supply molecules one at a time
  public:
   MolSupplier() {}
@@ -121,7 +121,7 @@ class RDKIT_FILEPARSERS_EXPORT MolSupplier {
 };
 
 // \brief a supplier from an SD file that only reads forward:
-class RDKIT_FILEPARSERS_EXPORT ForwardSDMolSupplier : public MolSupplier {
+class RDKIX_FILEPARSERS_EXPORT ForwardSDMolSupplier : public MolSupplier {
   /*************************************************************************
    * A lazy mol supplier from a SD file.
    *  - When new molecules are read using "next" their positions in the file are
@@ -157,7 +157,7 @@ class RDKIT_FILEPARSERS_EXPORT ForwardSDMolSupplier : public MolSupplier {
   bool df_eofHitOnRead = false;
 };
 // \brief a lazy supplier from an SD file
-class RDKIT_FILEPARSERS_EXPORT SDMolSupplier : public ForwardSDMolSupplier {
+class RDKIX_FILEPARSERS_EXPORT SDMolSupplier : public ForwardSDMolSupplier {
   /*************************************************************************
    * A lazy mol supplier from a SD file.
    *  - When new molecules are read using "next" their positions in the file are
@@ -245,7 +245,7 @@ struct SmilesMolSupplierParams {
 };
 
 //! lazy file parser for Smiles tables
-class RDKIT_FILEPARSERS_EXPORT SmilesMolSupplier : public MolSupplier {
+class RDKIX_FILEPARSERS_EXPORT SmilesMolSupplier : public MolSupplier {
   /**************************************************************************
    * Lazy file parser for Smiles table file, similar to the lazy SD
    * file parser above
@@ -337,7 +337,7 @@ struct TDTMolSupplierParams {
 };
 
 //! lazy file parser for TDT files
-class RDKIT_FILEPARSERS_EXPORT TDTMolSupplier : public MolSupplier {
+class RDKIX_FILEPARSERS_EXPORT TDTMolSupplier : public MolSupplier {
   /**************************************************************************
    * Lazy file parser for TDT files, similar to the lazy SD
    * file parser above
@@ -400,7 +400,7 @@ class RDKIT_FILEPARSERS_EXPORT TDTMolSupplier : public MolSupplier {
 };
 
 //! Deprecated, will be removed in 2024.09 release
-class RDKIT_FILEPARSERS_EXPORT PDBMolSupplier : public MolSupplier {
+class RDKIX_FILEPARSERS_EXPORT PDBMolSupplier : public MolSupplier {
  public:
   explicit PDBMolSupplier(std::istream *inStream, bool takeOwnership = true,
                           const PDBParserParams &params = PDBParserParams());
@@ -423,7 +423,7 @@ struct MaeMolSupplierParams {
   bool removeHs = true;
 };
 //! lazy file parser for MAE files
-class RDKIT_FILEPARSERS_EXPORT MaeMolSupplier : public MolSupplier {
+class RDKIX_FILEPARSERS_EXPORT MaeMolSupplier : public MolSupplier {
   /**
    * Due to maeparser's shared_ptr<istream> Reader interface, MaeMolSupplier
    * always requires taking ownership of the istream ptr, as the shared ptr will
@@ -476,7 +476,7 @@ class RDKIT_FILEPARSERS_EXPORT MaeMolSupplier : public MolSupplier {
 
 }  // namespace FileParsers
 }  // namespace v2
-}  // namespace RDKit
+}  // namespace RDKix
 
 #include "MolSupplier.v1API.h"
 

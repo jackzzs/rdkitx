@@ -1,12 +1,12 @@
 //
 //
-//  Copyright (C) 2019-2021 Greg Landrum and other RDKit contributors
+//  Copyright (C) 2019-2021 Greg Landrum and other RDKix contributors
 //
 //   @@ All Rights Reserved @@
-//  This file is part of the RDKit.
+//  This file is part of the RDKix.
 //  The contents are covered by the terms of the BSD license
 //  which is included in the file license.txt, found at the root
-//  of the RDKit source tree.
+//  of the RDKix source tree.
 //
 #include <emscripten.h>
 #include <emscripten/val.h>
@@ -17,7 +17,7 @@
 #include <GraphMol/MolDraw2D/MolDraw2DUtils.h>
 #include <GraphMol/MolDraw2D/MolDraw2DJS.h>
 
-using namespace RDKit;
+using namespace RDKix;
 
 namespace {
 class JSDrawerFromDetails : public MinimalLib::DrawerFromDetails {
@@ -226,14 +226,14 @@ emscripten::val get_topological_torsion_fp_as_uint8array(const JSMolBase &self) 
   return get_topological_torsion_fp_as_uint8array(self, "{}");
 }
 
-emscripten::val get_rdkit_fp_as_uint8array(const JSMolBase &self,
+emscripten::val get_rdkix_fp_as_uint8array(const JSMolBase &self,
                                            const std::string &details) {
-  auto fp = self.get_rdkit_fp_as_binary_text(details);
+  auto fp = self.get_rdkix_fp_as_binary_text(details);
   return binary_string_to_uint8array(fp);
 }
 
-emscripten::val get_rdkit_fp_as_uint8array(const JSMolBase &self) {
-  return get_rdkit_fp_as_uint8array(self, "{}");
+emscripten::val get_rdkix_fp_as_uint8array(const JSMolBase &self) {
+  return get_rdkix_fp_as_uint8array(self, "{}");
 }
 
 emscripten::val get_atom_pair_fp_as_uint8array(const JSMolBase &self,
@@ -327,7 +327,7 @@ emscripten::val get_mmpa_frags_helper(const JSMolBase &self, unsigned int minCut
 }  // namespace
 
 using namespace emscripten;
-EMSCRIPTEN_BINDINGS(RDKit_minimal) {
+EMSCRIPTEN_BINDINGS(RDKix_minimal) {
   register_vector<std::string>("StringList");
   register_vector<JSMolList *>("JSMolListList");
 
@@ -409,11 +409,11 @@ EMSCRIPTEN_BINDINGS(RDKit_minimal) {
       .function("get_topological_torsion_fp_as_uint8array",
                 select_overload<val(const JSMolBase &, const std::string &)>(
                     get_topological_torsion_fp_as_uint8array))
-      .function("get_rdkit_fp_as_uint8array",
-                select_overload<val(const JSMolBase &)>(get_rdkit_fp_as_uint8array))
-      .function("get_rdkit_fp_as_uint8array",
+      .function("get_rdkix_fp_as_uint8array",
+                select_overload<val(const JSMolBase &)>(get_rdkix_fp_as_uint8array))
+      .function("get_rdkix_fp_as_uint8array",
                 select_overload<val(const JSMolBase &, const std::string &)>(
-                    get_rdkit_fp_as_uint8array))
+                    get_rdkix_fp_as_uint8array))
       .function(
           "get_atom_pair_fp_as_uint8array",
           select_overload<val(const JSMolBase &)>(get_atom_pair_fp_as_uint8array))
@@ -452,11 +452,11 @@ EMSCRIPTEN_BINDINGS(RDKit_minimal) {
       .function("get_topological_torsion_fp",
                 select_overload<std::string(const std::string &) const>(
                     &JSMolBase::get_topological_torsion_fp))
-      .function("get_rdkit_fp",
-                select_overload<std::string() const>(&JSMolBase::get_rdkit_fp))
-      .function("get_rdkit_fp",
+      .function("get_rdkix_fp",
+                select_overload<std::string() const>(&JSMolBase::get_rdkix_fp))
+      .function("get_rdkix_fp",
                 select_overload<std::string(const std::string &) const>(
-                    &JSMolBase::get_rdkit_fp))
+                    &JSMolBase::get_rdkix_fp))
       .function("get_atom_pair_fp",
                 select_overload<std::string() const>(&JSMolBase::get_atom_pair_fp))
       .function("get_atom_pair_fp",
